@@ -1,15 +1,33 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<div>
+  <div class="header">
+    header
+  </div>
+  <div id="sub-container">
+
+  </div>
+</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { onMounted } from 'vue'
+import { registerMicroApps, setDefaultMountApp, start } from 'qiankun';
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  setup() {
+    onMounted(() => {
+      registerMicroApps([
+        {
+          name: 'vue3', // app name registered
+          entry: '//localhost:3001',
+          container: '#sub-container',
+          activeRule: '/vue3',
+        },
+      ])
+      setDefaultMountApp('/vue3')
+      start()
+    })
   }
 }
 </script>
